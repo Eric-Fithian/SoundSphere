@@ -1,0 +1,365 @@
+<%- include ('../partials/head') %>
+  <%- include ('../partials/menu') %>
+
+    <main>
+      <div class="col"><%- include ('../partials/message') %></div>
+      <div class="container mt-4" style="margin-bottom: 96px;">
+        <div class="row">
+          <div class="col-12">
+            <div class="container"
+              style="max-width: 900px !important; width: 100% !important; height: fit-content; padding: 0px;">
+              <% if (ownProfile==true && edit==true) { %>
+                <div class="d-flex flex-column align-items-center">
+                  <form action="/profile/delete" method="post" style="margin: 0;">
+                    <button type="submit"
+                      style="background: red; color: white; border-radius: 5px; padding: 4px; margin: 0;">
+                      Delete Account
+                    </button>
+                  </form>
+                </div>
+                <% }%>
+                  <!-- Profile Heading -->
+                  <% if (ownProfile==true && edit==true) { %>
+                    <form action="/profile/edit" method="post" style="max-width: 900px">
+                      <% }%>
+                        <div class="col" style="background-color: whitesmoke; border-color: black; border-width: 2px; border-style: solid; padding:
+                24px;">
+                          <div class="d-flex">
+                            <div class="col-6 d-flex align-items-center">
+                              <img src="<%= user.profile_picture %>" alt="profile picture"
+                                style="width: 80px; height: 80px; border-radius: 50%;">
+                              <div class="d-flex flex-column" style="align-items: flex-start;"
+                                style="margin: 0; padding: 0;">
+                                <% if (ownProfile==true && edit==true) { %>
+                                  <textarea class="display-name" name="displayName" id="displayName" rows="1"
+                                    style="width: 100%; background: none; border: none; resize: none; overflow: hidden; margin-right: 12px; padding-left: 20px;"><%= user.display_name %></textarea>
+
+                                  <% } else { %>
+                                    <div class="d-flex align-items-center">
+                                      <h1 style="padding-left: 20px; max-width: 300px; overflow: hidden;">
+                                        <%= user.display_name %>
+                                      </h1>
+                                      <% if (ownProfile==true && edit==false) { %>
+                                        <form action="/profile/edit" method="get" style="padding: 0; margin: 0;">
+                                          <button
+                                            style="background: none; border: none; margin: 0; padding: 0; margin-left: 20px;"
+                                            type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                              fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                              <path
+                                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                              <path fill-rule="evenodd"
+                                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                            </svg>
+                                          </button>
+                                        </form>
+                                        <% } %>
+                                    </div>
+
+                                    <% } %>
+                                      <h2 style="padding-left: 20px;">
+                                        @<%= user.username %>
+                                          </h1>
+                              </div>
+                              <% if (ownProfile==false) { %>
+                                <% if (isfollowing==false) {%>
+                                  <form action="/user/follow/<%= user.user_id %>" method="post">
+                                    <button type="submit"
+                                      style="margin: 0; margin-left: 20px; background: none; border: 2px solid black;">
+                                      <h2>
+                                        Follow
+                                      </h2>
+                                    </button>
+                                  </form>
+                                  <% } else { %>
+                                    <form action="/user/unfollow/<%= user.user_id %>" method="post">
+                                      <button type="submit"
+                                        style="margin-left: 20px; background: none; border: 2px solid black;">
+                                        <h2>
+                                          Unfollow
+                                        </h2>
+                                      </button>
+                                    </form>
+                                    <% } %>
+                                      <% } else if (edit==false) { %>
+
+                                        <% } %>
+
+                            </div>
+                            <div class="col-6 d-flex" style="align-items: flex-start; padding-top: 20px;">
+                              <h2 style="padding-left: 40px;">
+                                Followers: <%= user.followers %>
+                              </h2>
+                              <h2 style="padding-left: 40px;">
+                                Following: <%= user.following %>
+                              </h2>
+                            </div>
+                          </div>
+                          <div style="width: 50%">
+                            <% if (ownProfile==true && edit==true) { %>
+                              <textarea class="bio" name="bio" id="bio"
+                                style="width: 100%; background: none; border: none; resize: none; overflow: hidden; padding: 4px; margin-right: 12px; margin-top: 4px;"><%= user.bio %></textarea>
+                              <button type="submit"
+                                style="background: none; border-radius: 5px; padding: 4px; margin: 0; margin-top: 12px;">
+                                Save
+                              </button>
+                              <% } else { %>
+                                <p style="color: black; padding-top: 8px;">
+                                  <%= user.bio %>
+                                </p>
+                                <% } %>
+                          </div>
+                        </div>
+                        <% if (ownProfile==true && edit==true) { %>
+                    </form>
+
+                    <% }%>
+
+            </div>
+            <div class="container" style="max-width: 900px; width: 100%; height: fit-content; padding: 0px;">
+              <!-- Profile Info -->
+              <div class="row" style="margin-top: 32px;">
+                <!-- Top Songs -->
+                <div class="col-6 d-flex flex-column align-items-center" style="background-color: transparent;">
+                  <h1 style="background-color: whitesmoke; border-color: black; border-width: 2px; border-style: solid; padding:
+                  12px;">
+                    Top Songs</h1>
+                  <% if (topTracks) { %>
+                    <% topTracks.items.forEach(function(song) { %>
+                      <div class="col" style="width: 90%; border-color: black; border-width: 2px; border-style: solid; padding:
+                    16px; margin-top: 24px;">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <img src="<%= song.album.images[0].url %>" alt="Album cover"
+                              style="width: 80px; height: auto;">
+                            <div style="padding-left: 20px; max-width: 200px;">
+                              <h2 style="word-wrap: break-word;">
+                                <%= song.name %>
+                              </h2>
+                              <h3 style="font-size: 14px; margin-top: 8px;">
+                                <%= song.artists[0].name %>
+                              </h3>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center" style="width: 60px; height: 60px;">
+                            <button onclick="window.location.href='<%= song.external_urls.spotify %>'"
+                              style="width: 40px; height: 40px; padding: 0; display: flex; justify-content: center; align-items: center; border: none; background: none;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black"
+                                class="bi bi-play-fill" viewBox="0 0 16 16"
+                                style="z-index: 1; transform: translateX(1px);">
+                                <path
+                                  d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <% }); } %>
+                </div>
+                <!-- Top Artists -->
+                <div class="col-6 d-flex flex-column align-items-center" style="background-color: transparent;">
+                  <h1 style="background-color: whitesmoke; border-color: black; border-width: 2px; border-style: solid; padding:
+                  12px;">
+                    Top Artists</h1>
+                  <% if (topArtists) { %>
+                    <% topArtists.items.forEach(function(artist) { %>
+                      <div class="col" style="width: 90%; border-color: black; border-width: 2px; border-style: solid; padding:
+                      16px; margin-top: 24px;">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <img src="<%= artist.images[0].url %>" alt="Album cover" style="width: 80px; height: auto;">
+                            <div style="padding-left: 20px;">
+                              <h2>
+                                <%= artist.name %>
+                              </h2>
+                              <h3 style="font-size: 14px; margin-top: 8px;">
+                                <%= artist.genres.join(', ') %>
+                            </h3>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center" style="width: 60px; height: 60px;">
+                          <button onclick="window.location.href=' <%=artist.external_urls.spotify %>'"
+                                  style="width: 40px; height: 40px; padding: 0; display: flex; justify-content:
+                                  center;
+                                  align-items: center; border: none; background: none;">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="black"
+                                    class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                      d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                                  </svg>
+                                  </button>
+                            </div>
+                          </div>
+                        </div>
+                        <% }); }%>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-4">
+        <div class="row">
+          <% if (typeof posts !=="undefined" ) { %>
+            <% posts.forEach(post=> { %>
+              <div class="col-12">
+                <div class="container box-shadow"
+                  style="position: relative; max-width: 390px; width: 100%; height: fit-content; padding: 0px;">
+                  <div class="col"
+                    style="width: 100%; height: fit-content; border-color: black; border-width: 1px; border-style: solid; padding: 12px;">
+                    <h2 style="padding-bottom: 4px;">
+                      <%= post.song_name %>
+                    </h2>
+
+                    <h2 class="subtitle">
+                      <%= post.artist %>
+                    </h2>
+
+
+                  </div>
+                  <div class="col"
+                    style="width: 100%; border-color: black; border-width: 1px; border-style: solid; border-top: 0px; overflow: hidden;">
+                    <img src="<%= post.img_url %>" width="100%"></img>
+                  </div>
+                  <div class="col"
+                    style="width: 100%; border-color: black; border-width: 1px; border-style: solid; border-top: 0px; padding: 12px; padding-bottom: 16px;">
+
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex align-items-center" style="padding-bottom: 12px;">
+                        <img src="<%= post.profile_picture %>" width="32px" height="32px"
+                          style="border-radius: 50%; margin-right: 10px;">
+                        <div class="d-flex flex-column" style="align-items: flex-start;">
+                          <h2>
+                            <%= post.display_name %>
+                          </h2>
+                          <h2 class="subtitle">
+                            @<%= post.username %>
+                          </h2>
+                        </div>
+
+                      </div>
+                      <div class="like-section">
+                        <button type="button" onclick="toggleLike('<%= post.post_post_id %>', this)"
+                          class="like-button btn" data-liked="<%= post.user_liked %>" style="padding: 0;">
+                          <% if(post.user_liked) { %>
+                            <i class="bi bi-heart-fill"></i>
+                            <% } else { %>
+                              <i class="bi bi-heart"></i>
+                              <% } %>
+                        </button>
+                        <span id="like-count-<%= post.post_post_id %>">
+                          <%= post.likes %>
+                        </span>
+                        <span>
+                          Likes
+                        </span>
+                      </div>
+                    </div>
+
+
+                    <div>
+                      <p style="word-wrap: break-word;">
+                        <%= post.description %>
+                      </p>
+                    </div>
+
+                  </div>
+                  <div class=" col"
+                    style="width: 100%; border-color: black; border-width: 1px; border-style: solid; border-top: 0px; padding: 12px;">
+                    <div class="d-flex align-items-center justify-content-between" style="padding-bottom: 8px;">
+                      <p style="color: black;">
+                        Comments
+                      </p>
+                      <button type="button" onclick="window.location.href='/post/comments/<%= post.post_post_id %>'"
+                        style="background: none; border: none; padding: 4px 8px; font-size: 14px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                      </button>
+                    </div>
+                    <% if (post.comment !==null) { %>
+                      <div>
+                        <p>
+                          <%= post.comment.length> 50 ? post.comment.slice(0, 50) :
+                            post.comment %>...
+                        </p>
+                      </div>
+                      <% } else { %>
+                        <div>
+                          <p>
+                            No comments yet
+                          </p>
+                        </div>
+                        <% } %>
+                          <div style="position: absolute;
+                                        right: 12px;
+                                        top: 390px;
+                                        width: 60px;
+                                        height: 60px;">
+                            <button onclick="window.location.href='<%= post.song_url %>'"
+                              style="width: 100%; height: 100%; border: none; background: none; padding: 0; display: flex; justify-content: center; align-items: center; position: relative;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="61" height="61" viewBox="0 0 61 61"
+                                fill="none">
+                                <circle cx="30.0828" cy="30.6958" r="29.5" fill="white" stroke="black" />
+                              </svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="black"
+                                class="bi bi-play-fill" viewBox="0 0 16 16"
+                                style="z-index: 1; position: absolute; transform: translateX(1px);">
+                                <path
+                                  d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                              </svg>
+                            </button>
+                          </div>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: center; padding-top: 48px; padding-bottom: 48px;">
+                  <hr
+                    style="max-width: 390px; width: 100%; border: 0; border-top: 2px solid black; height: 1px; margin: 0;">
+                </div>
+              </div>
+              <% }); %>
+
+                <script>
+                  async function toggleLike(postId, button) {
+                    const liked = button.getAttribute('data-liked') === 'true';
+                    const url = `/post/${liked ? 'unlike' : 'like'}/${postId}`;
+
+                    try {
+                      const response = await fetch(url, { method: 'POST' });
+                      if (response.ok) {
+                        // Update like count
+                        var likeCountElement = document.getElementById('like-count-' + postId);
+                        var currentLikes = parseInt(likeCountElement.innerText);
+                        likeCountElement.innerText = liked ? currentLikes - 1 : currentLikes + 1;
+
+                        // Update button icon and data-liked attribute
+                        if (liked) {
+                          button.innerHTML = '<i class="bi bi-heart"></i>';
+                          button.setAttribute('data-liked', 'false');
+                        } else {
+                          button.innerHTML = '<i class="bi bi-heart-fill"></i>';
+                          button.setAttribute('data-liked', 'true');
+                        }
+                      } else {
+                        console.error('Failed to toggle like');
+                      }
+                    } catch (error) {
+                      console.error('Error:', error);
+                    }
+                  }
+                </script>
+
+                <% } else { %>
+                  <div class=" col-12">
+                    <h1>No Posts Found</h1>
+                  </div>
+                  <% } %>
+        </div>
+      </div>
+    </main>
+
+    <%- include(`../partials/footer`) %>
