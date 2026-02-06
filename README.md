@@ -1,5 +1,4 @@
-# CSCI3308_16-07
-CSCI 3308 Group Project
+# SoundSphere
 
 ## Brief Application description
 The application is a social media website for sharing music. It is called SoundSphere. It is like Instagram and Spotify had a baby.
