@@ -57,4 +57,4 @@ The application is a social media website for sharing music. It is called SoundS
 - simply `docker compose up` and the tests will run automatically
 
 ## Link to the deployed application
-- Not currently deployed
+- No longer deployed
